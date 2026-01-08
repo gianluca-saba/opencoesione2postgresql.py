@@ -443,7 +443,7 @@ def main(args, password=None):
         port = f' port={args.port}' if args.port else ''
         user = f' user={args.user}' if args.user else ''
         password = f' password={password}' if password else ''
-        with psycopg.connect(f"dbname={args.dbname}{host}{user}{password}") as conn:
+        with psycopg.connect(f"dbname={args.dbname}{host}{port}{user}{password}") as conn:
             cur = conn.cursor()
             if args.delete:
                 try:
@@ -489,7 +489,7 @@ def main(args, password=None):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("csvfile", help="File csv ottenuto da Opencoesione")
-    parser.add_argument("dbname", help="Database in cui importarei dati", default='opencoesione')
+    parser.add_argument("dbname", help="Database in cui importare i dati", default='opencoesione')
     parser.add_argument("-H", "--dbhost", help="Host postgresql")
     parser.add_argument("-P", "--port", help="Porta, default=5432", default='5432', type=int)
     parser.add_argument("-u", "--user", help="Username postgresql")
